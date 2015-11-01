@@ -21,7 +21,7 @@ def test():
     assert poker([fk, fh]) == fk
     assert poker([fh, fh]) == fh
     assert poker([fh]) == fh
-    assert poker([fh for i in range(100)]) == fh
+    assert poker([sf] + 99 * [fh]) == sf
     return 'tests pass'
 
 print test()
