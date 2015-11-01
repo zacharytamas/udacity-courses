@@ -11,7 +11,25 @@ def poker(hands):
 def hand_rank(hand):
   "Return a value indicating the rank of a hand."
   ranks = card_ranks(hand)
-  return hand
+
+  if straight(ranks) and flush(hand):            # straight flush
+    return (8, max(ranks))
+  elif kind(4, ranks):                           # 4 of a kind
+    return (7, kind(4, ranks), kind(1, ranks))
+  elif kind(3, ranks) and kind(2, ranks):        # full house
+    return # your code here
+  elif flush(hand):                              # flush
+    return # your code here
+  elif straight(ranks):                          # straight
+    return # your code here
+  elif kind(3, ranks):                           # 3 of a kind
+    return # your code here
+  elif two_pair(ranks):                          # 2 pair
+    return # your code here
+  elif kind(2, ranks):                           # kind
+    return # your code here
+  else:                                          # high card
+    return # your code here
 
 
 def card_ranks(hand):
