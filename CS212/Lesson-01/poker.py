@@ -31,18 +31,13 @@ def hand_rank(hand):
 
 def card_ranks(cards):
     "Return a list of the ranks, sorted with higher first."
-
-    RANK_MAP = dict(zip(["T", "J", "Q", "K", "A"], range(10, 15)))
-
-    def rank_to_int(card):
-        r, s = card
-        if r in RANK_MAP:
-            return RANK_MAP[r]
-        else:
-            return int(r)
-
-    ranks = map(rank_to_int, cards)
+    ranks = ['--23456789TJQKA'.index(r) for r, s in cards]
     ranks.sort(reverse=True)
+
+    # Accomodate the situation where an Ace is used as a low card.
+    if ranks == [14, 5, 4, 3, 2]:
+        ranks = ranks[1:] + [1]
+
     return ranks
 
 
