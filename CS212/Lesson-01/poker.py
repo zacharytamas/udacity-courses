@@ -28,6 +28,24 @@ def hand_rank(hand):
     else:                                          # high card
         return (0, ranks)
 
+
+def card_ranks(cards):
+    "Return a list of the ranks, sorted with higher first."
+
+    RANK_MAP = dict(zip(["T", "J", "Q", "K", "A"], range(10, 15)))
+
+    def rank_to_int(card):
+        r, s = card
+        if r in RANK_MAP:
+            return RANK_MAP[r]
+        else:
+            return int(r)
+
+    ranks = map(rank_to_int, cards)
+    ranks.sort(reverse=True)
+    return ranks
+
+
 def test():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split() # Straight Flush
