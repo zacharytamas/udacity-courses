@@ -66,7 +66,8 @@ def kind(n, ranks):
 
   for rank in ranks:
     if last != rank:
-      if count == n: return last
+      if count == n:
+        return last
       count = 0
     last = rank
     count += 1
