@@ -57,22 +57,51 @@ def flush(hand):
   return len(set(suits)) == 1
 
 
+def kind(n, ranks):
+  """Return the first rank that this hand has exactly n of.
+  Return None if there is no n-of-a-kind in the hand."""
+
+  last = None
+  count = 0
+
+  for rank in ranks:
+    if last != rank:
+      if count == n: return last
+      count = 0
+    last = rank
+    count += 1
+
+  if count == n:
+    return last
+
+
 def test():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split()  # Straight Flush
     fk = "9D 9H 9S 9C 7D".split()  # Four of a Kind
     fh = "TD TC TH 7C 7D".split()  # Full House
+
     assert card_ranks(sf) == [10, 9, 8, 7, 6]
     assert card_ranks(fk) == [9, 9, 9, 9, 7]
     assert card_ranks(fh) == [10, 10, 10, 7, 7]
+
+    fkranks = card_ranks(fk)
+
+    assert kind(4, fkranks) == 9
+    assert kind(3, fkranks) is None
+    assert kind(2, fkranks) is None
+    assert kind(1, fkranks) == 7
+
+    assert hand_rank(sf) == (8, 10)
+    assert hand_rank(fk) == (7, 9, 7)
+    assert hand_rank(fh) == (6, 10, 7)
+
     assert poker([sf, fk, fh]) == sf
     assert poker([fk, fh]) == fk
     assert poker([fh, fh]) == fh
     assert poker([sf]) == sf
-    assert poker([sf] + 99*[fh]) == sf
-    assert hand_rank(sf) == (8, 10)
-    assert hand_rank(fk) == (7, 9, 7)
-    assert hand_rank(fh) == (6, 10, 7)
+    assert poker([sf] + 99 * [fh]) == sf
+
     return 'tests pass'
 
 print test()
