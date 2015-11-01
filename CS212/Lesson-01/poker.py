@@ -46,11 +46,22 @@ def card_ranks(cards):
     return ranks
 
 
+def straight(ranks):
+  "Return True if the ordered ranks form a 5-card straight."
+  return (max(ranks) - min(ranks) == 4) and len(set(ranks)) == 5
+
+
+def flush(hand):
+  "Return True if all the cards have the same suit."
+  suits = [s for r, s in hand]
+  return len(set(suits)) == 1
+
+
 def test():
     "Test cases for the functions in poker program"
-    sf = "6C 7C 8C 9C TC".split() # Straight Flush
-    fk = "9D 9H 9S 9C 7D".split() # Four of a Kind
-    fh = "TD TC TH 7C 7D".split() # Full House
+    sf = "6C 7C 8C 9C TC".split()  # Straight Flush
+    fk = "9D 9H 9S 9C 7D".split()  # Four of a Kind
+    fh = "TD TC TH 7C 7D".split()  # Full House
     assert card_ranks(sf) == [10, 9, 8, 7, 6]
     assert card_ranks(fk) == [9, 9, 9, 9, 7]
     assert card_ranks(fh) == [10, 10, 10, 7, 7]
@@ -63,3 +74,5 @@ def test():
     assert hand_rank(fk) == (7, 9, 7)
     assert hand_rank(fh) == (6, 10, 7)
     return 'tests pass'
+
+print test()
