@@ -1,3 +1,7 @@
+#
+# In the first Lesson of the class we are attempting to
+# build a Poker program.
+#
 
 def poker(hands):
   "Return the best hand: poker([hand,...]) => hand"
