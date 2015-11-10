@@ -71,8 +71,6 @@ class ConferenceApi(remote.Service):
         profile = None
 
         ## step 2: create a new Profile from logged in user data
-        ## you can use user.nickname() to get displayName
-        ## and user.email() to get mainEmail
         if not profile:
             profile = Profile(
                 userId = None,
@@ -116,4 +114,4 @@ class ConferenceApi(remote.Service):
 
 
 # registers API
-api = endpoints.api_server([ConferenceApi]) 
+api = endpoints.api_server([ConferenceApi])
