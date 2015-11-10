@@ -189,7 +189,6 @@ class ConferenceApi(remote.Service):
         """Return user profile."""
         return self._doProfile()
 
-
     @endpoints.method(ProfileMiniForm, ProfileForm,
             path='profile', http_method='POST', name='saveProfile')
     def saveProfile(self, request):
@@ -215,6 +214,24 @@ class ConferenceApi(remote.Service):
             items=[self._copyConferenceToForm(conf, "") \
             for conf in conferences]
         )
+
+    @endpoints.method(message_types.VoidMessage, ConferenceForms,
+            path='getConferencesCreated',
+            http_method='GET',
+            name='getConferencesCreated')
+    def getConferencesCreated(self, request):
+      # Get profile from user. This raises an Exception if
+      # the user isn't logged in.
+      profile = self._getProfileFromUser()
+
+      ancestor = profile.key
+      conferences = Conference.query(ancestor=ancestor)
+      displayName = getattr(profile, "displayName")
+
+      return ConferenceForms(
+        items=[self._copyConferenceToForm(conf, displayName)
+               for conf in conferences]
+      )
 
 
 # registers API
